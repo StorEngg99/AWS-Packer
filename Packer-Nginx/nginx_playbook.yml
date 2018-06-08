@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+  tasks:
+   - name: Nginx Install
+     package: name=nginx state=installed
+   - name: Start nginx Service
+     service: name=nginx state=running

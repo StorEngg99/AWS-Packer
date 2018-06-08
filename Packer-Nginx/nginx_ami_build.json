@@ -1,0 +1,29 @@
+{
+"variables": {
+"aws_access_key":"",
+"aws_secret_key":""
+},
+
+"builders": [{
+"type": "amazon-ebs",
+"access_key":"{{user `aws_access_key` }}",
+"secret_key":"{{user `aws_secret_key` }}",
+"region":"us-west-2",
+"source_ami": "ami-e251209a",
+"instance_type": "t2.micro",
+"ssh_username": "ec2-user",
+"ami_name": "Packer-{{isotime | clean_ami_name}}",
+"ami_description":"Amazon Custom Image using Packr",
+"tags": { 
+    "role":"Apache Server"
+        },
+"run_tags": {
+    "role":"prod_server"
+       }
+}],
+
+"provisioners": [{
+	"type":"ansible",
+	"playbook_file":"nginx_playbook.yml"
+}]
+}
